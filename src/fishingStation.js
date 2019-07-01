@@ -20,6 +20,11 @@ class FishingStation extends React.Component {
     this.setState({fishAmt: newAmt})
   }
 
+  regenerate = () => {
+    let regenAmt = 1.5 * this.state.fishAmt
+    this.setState({fishAmt: regenAmt})
+  }
+
   render() {
     return (
       <div>
@@ -27,6 +32,7 @@ class FishingStation extends React.Component {
         <p>
           Welcome Fisherperson. This fishery has {this.state.fishAmt} fish.
         </p>
+        <Button onClick={this.regenerate}>regenerate</Button>
         <TimeCalculator numFish={this.state.fishAmt} onTimerStop={this.updateFishAmount} />
       </div>
     );
