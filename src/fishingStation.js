@@ -28,11 +28,11 @@ class FishingStation extends React.Component {
   render() {
     return (
       <div>
-        <h1>Fishery No. 1</h1>
         <p>
-          Welcome Fisherperson. This fishery has {this.state.fishAmt} fish.
+            Welcome Fisherperson. This fishery has {this.state.fishAmt} fish.
+            <br />
+            <Button onClick={this.regenerate}>regenerate</Button>
         </p>
-        <Button onClick={this.regenerate}>regenerate</Button>
         <TimeCalculator numFish={this.state.fishAmt} onTimerStop={this.updateFishAmount} />
       </div>
     );

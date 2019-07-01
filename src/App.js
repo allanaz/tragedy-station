@@ -10,8 +10,11 @@ function App() {
     <div className="App">
       <header className="App-header">
        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <FishingStation />
+       <h1>Fishery No. 1</h1>
       </header>
+      <body className="App-body">
+        <FishingStation />
+      </body>
     </div>
   );
 }
