@@ -32,9 +32,13 @@ class TimeCalculator extends React.Component {
     clearInterval(this.timer);
     this.props.onTimerStop(Math.floor((this.state.fishingTime-this.state.timerTime)
       /this.state.fishingTime*this.state.numFishRequested));
-    this.setState({timerOpen: false});
+
   }
 
+  closeTimer = () => {
+    clearInterval(this.timer);
+    this.setState({timerOpen: false});
+  }
 
   handleChange = (e) => {
     this.setState({numFishRequested: e.target.value})
@@ -67,12 +71,16 @@ class TimeCalculator extends React.Component {
              open={this.state.timerOpen}>
             <Modal.Content>
             <Countdown minutes="00" seconds={this.state.timerTime}/>
-            <h1>You get {Math.floor((this.state.fishingTime-this.state.timerTime)
-              /this.state.fishingTime*this.state.numFishRequested)} fish</h1>
+            <h1>You've caught {Math.floor((this.state.fishingTime-this.state.timerTime)
+              /this.state.fishingTime*this.state.numFishRequested)} fish in {
+                this.state.fishingTime - this.state.timerTime} seconds</h1>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='red' inverted onClick={this.stopTimer}>
+              <Button color='orange' inverted onClick={this.stopTimer}>
                 <Icon name='x' /> Stop Fishing
+              </Button>
+              <Button color='red' inverted onClick={this.closeTimer}>
+                <Icon name='x' /> Close
               </Button>
             </Modal.Actions>
           </Modal>
