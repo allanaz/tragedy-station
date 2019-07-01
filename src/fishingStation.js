@@ -15,8 +15,8 @@ class FishingStation extends React.Component {
     this.updateFishAmount = this.updateFishAmount.bind(this)
   }
 
-  updateFishAmount = (numFishRequested) => {
-    let newAmt = this.fishAmt - numFishRequested
+  updateFishAmount = (numFishTaken) => {
+    let newAmt = this.state.fishAmt - numFishTaken
     this.setState({fishAmt: newAmt})
   }
 
@@ -25,10 +25,9 @@ class FishingStation extends React.Component {
       <div>
         <h1>Fishery No. 1</h1>
         <p>
-          Welcome Fisherperson.
+          Welcome Fisherperson. This fishery has {this.state.fishAmt} fish.
         </p>
-        <TimeCalculator onTimerStop={this.updateFishAmount} />
-        <Countdown minutes="00" seconds="15" />
+        <TimeCalculator numFish={this.state.fishAmt} onTimerStop={this.updateFishAmount} />
       </div>
     );
   }

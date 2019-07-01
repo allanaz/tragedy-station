@@ -29,7 +29,8 @@ class TimeCalculator extends React.Component {
 
   stopTimer = () => {
     clearInterval(this.timer);
-
+    this.props.onTimerStop(Math.floor((this.state.fishingTime-this.state.timerTime)
+      /this.state.fishingTime*this.state.numFishRequested));
   }
 
 
@@ -39,7 +40,7 @@ class TimeCalculator extends React.Component {
 
   // have amount left be passed down as a prop
   calculateTime = (fishLeft, numFishRequested) => {
-    const numFish = 400; const fisherySize = 100;
+    const numFish = this.props.numFish; const fisherySize = 100;
     const boatSpeed = 2;
     const time = Math.round(this.state.numFishRequested/(boatSpeed * numFish / fisherySize))
     this.setState({fishingTime: time, timerTime: time})
