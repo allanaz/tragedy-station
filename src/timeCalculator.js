@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Button, Form, Modal } from 'semantic-ui-react';
+import { Button, Form, Modal, Icon } from 'semantic-ui-react';
 import Countdown from './countdown'
 
 class TimeCalculator extends React.Component {
@@ -11,20 +11,26 @@ class TimeCalculator extends React.Component {
     this.calculateTime = this.calculateTime.bind(this)
     this.state = {
       numFishRequested: null,
-      fishingTime: 0
+      fishingTime: 0,
+      timerTime: 0
     }
   }
 
   startTimer = () => {
     this.timer = setInterval(() => {
       this.setState({
-        fishingTime: this.state.fishingTime - 1
+        timerTime: this.state.timerTime - 1
       });
-      if (this.state.fishingTime == 0){
-        clearInterval(this.timer);
+      if (this.state.timerTime == 0){
+        this.stopTimer();
       }
     }, 1000);
   };
+
+  stopTimer = () => {
+    clearInterval(this.timer);
+
+  }
 
 
   handleChange = (e) => {
@@ -33,7 +39,10 @@ class TimeCalculator extends React.Component {
 
   // have amount left be passed down as a prop
   calculateTime = (fishLeft, numFishRequested) => {
-    this.setState({fishingTime: 10})
+    const numFish = 400; const fisherySize = 100;
+    const boatSpeed = 2;
+    const time = Math.round(this.state.numFishRequested/(boatSpeed * numFish / fisherySize))
+    this.setState({fishingTime: time, timerTime: time})
     this.startTimer();
   }
 
@@ -50,8 +59,15 @@ class TimeCalculator extends React.Component {
           </Form.Field>
           <Modal basic trigger={<Button onClick={this.calculateTime}>Fish!</Button>}>
             <Modal.Content>
-            <Countdown minutes="00" seconds={this.state.fishingTime}/>
+            <Countdown minutes="00" seconds={this.state.timerTime}/>
+            <h1>You get {Math.floor((this.state.fishingTime-this.state.timerTime)
+              /this.state.fishingTime*this.state.numFishRequested)} fish</h1>
             </Modal.Content>
+            <Modal.Actions>
+              <Button color='red' inverted onClick={this.stopTimer}>
+                <Icon name='x' /> Stop Fishing
+              </Button>
+            </Modal.Actions>
           </Modal>
         </Form>
       </div>
