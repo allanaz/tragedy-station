@@ -12,7 +12,8 @@ class TimeCalculator extends React.Component {
     this.state = {
       numFishRequested: null,
       fishingTime: 0,
-      timerTime: 0
+      timerTime: 0,
+      timerOpen: false
     }
   }
 
@@ -31,6 +32,7 @@ class TimeCalculator extends React.Component {
     clearInterval(this.timer);
     this.props.onTimerStop(Math.floor((this.state.fishingTime-this.state.timerTime)
       /this.state.fishingTime*this.state.numFishRequested));
+    this.setState({timerOpen: false});
   }
 
 
@@ -43,7 +45,7 @@ class TimeCalculator extends React.Component {
     const numFish = this.props.numFish; const fisherySize = 100;
     const boatSpeed = 2;
     const time = Math.round(this.state.numFishRequested/(boatSpeed * numFish / fisherySize))
-    this.setState({fishingTime: time, timerTime: time})
+    this.setState({fishingTime: time, timerTime: time, timerOpen: true})
     this.startTimer();
   }
 
@@ -58,7 +60,11 @@ class TimeCalculator extends React.Component {
               value={this.state.numFishRequested}
               onChange={this.handleChange}/>
           </Form.Field>
-          <Modal basic trigger={<Button onClick={this.calculateTime}>Fish!</Button>}>
+          <Button onClick={this.calculateTime}>Fish!</Button>
+          <Modal basic
+             closeOnEscape={false}
+             closeOnDimmerClick={false}
+             open={this.state.timerOpen}>
             <Modal.Content>
             <Countdown minutes="00" seconds={this.state.timerTime}/>
             <h1>You get {Math.floor((this.state.fishingTime-this.state.timerTime)
