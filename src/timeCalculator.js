@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Button, Form, Modal } from 'semantic-ui-react';
+import Countdown from './countdown'
 
 class TimeCalculator extends React.Component {
   constructor(props) {
@@ -14,6 +15,18 @@ class TimeCalculator extends React.Component {
     }
   }
 
+  startTimer = () => {
+    this.timer = setInterval(() => {
+      this.setState({
+        fishingTime: this.state.fishingTime - 1
+      });
+      if (this.state.fishingTime == 0){
+        clearInterval(this.timer);
+      }
+    }, 1000);
+  };
+
+
   handleChange = (e) => {
     this.setState({numFishRequested: e.target.value})
   }
@@ -21,22 +34,23 @@ class TimeCalculator extends React.Component {
   // have amount left be passed down as a prop
   calculateTime = (fishLeft, numFishRequested) => {
     this.setState({fishingTime: 10})
+    this.startTimer();
   }
 
   render() {
     return (
       <div>
-        <Form>
+        <Form inverted>
           <Form.Field>
             <label>Enter an amount to fish:</label>
-            <input 
+            <input
               placeholder='integers only please'
               value={this.state.numFishRequested}
               onChange={this.handleChange}/>
           </Form.Field>
-          <Modal trigger={<Button onClick={this.calculateTime}>Fish!</Button>}>
+          <Modal basic trigger={<Button onClick={this.calculateTime}>Fish!</Button>}>
             <Modal.Content>
-            {/* <Countdown fishingTime={this.fishingTime}/> */}
+            <Countdown minutes="00" seconds={this.state.fishingTime}/>
             </Modal.Content>
           </Modal>
         </Form>

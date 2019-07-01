@@ -21,7 +21,7 @@ class FishingStation extends React.Component {
         <p>
           Welcome Fisherperson.
         </p>
-        <Countdown minutes="00" seconds="15" />
+        <TimeCalculator />
       </div>
     );
   }
