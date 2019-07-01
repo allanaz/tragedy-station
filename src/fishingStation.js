@@ -21,7 +21,7 @@ class FishingStation extends React.Component {
   }
 
   regenerate = () => {
-    let regenAmt = 1.5 * this.state.fishAmt
+    let regenAmt = Math.floor(1.5 * this.state.fishAmt)
     this.setState({fishAmt: regenAmt})
   }
 
