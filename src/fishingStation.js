@@ -8,7 +8,7 @@ class FishingStation extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      fishAmt: 200,
+      fishAmt: 300,
       roundNumber: 1,
     }
 
@@ -29,11 +29,30 @@ class FishingStation extends React.Component {
     return (
       <div>
         <p>
-            Welcome Fisherperson. This fishery has {this.state.fishAmt} fish.
+            Welcome Fisherperson.
             <br />
-            <Button onClick={this.regenerate}>regenerate</Button>
         </p>
         <TimeCalculator numFish={this.state.fishAmt} onTimerStop={this.updateFishAmount} />
+        <p>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          This fishery has {this.state.fishAmt} fish.
+          <br />
+          <Button onClick={this.regenerate}>regenerate fish population</Button>
+          <br />
+          <br />
+        </p>
       </div>
     );
   }
