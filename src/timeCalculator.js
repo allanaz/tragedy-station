@@ -12,7 +12,8 @@ class TimeCalculator extends React.Component {
       numFishRequested: null,
       fishingTime: 0,
       timerTime: 0,
-      timerOpen: false
+      timerOpen: false,
+      disabled: false,
     }
   }
 
@@ -21,13 +22,14 @@ class TimeCalculator extends React.Component {
       this.setState({
         timerTime: this.state.timerTime - 1
       });
-      if (this.state.timerTime == 0){
+      if (this.state.timerTime === 0){
         this.stopTimer();
       }
     }, 1000);
   };
 
   stopTimer = () => {
+    this.setState({disabled: true});
     clearInterval(this.timer);
     this.props.onTimerStop(Math.floor((this.state.fishingTime-this.state.timerTime)/this.state.fishingTime*this.state.numFishRequested));
 
@@ -35,7 +37,7 @@ class TimeCalculator extends React.Component {
 
   closeTimer = () => {
     clearInterval(this.timer);
-    this.setState({timerOpen: false});
+    this.setState({timerOpen: false, disabled: false});
   }
 
   handleChange = (e) => {
@@ -78,7 +80,7 @@ class TimeCalculator extends React.Component {
                 this.state.fishingTime - this.state.timerTime} seconds</h1>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='orange' inverted onClick={this.stopTimer}>
+              <Button color='orange' inverted onClick={this.stopTimer} disabled={this.state.disabled}>
                 <Icon name='x' /> Stop Fishing
               </Button>
               <Button color='red' inverted onClick={this.closeTimer}>
