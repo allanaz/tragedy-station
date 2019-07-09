@@ -75,7 +75,7 @@ class TimeCalculator extends React.Component {
              closeOnDimmerClick={false}
              open={this.state.timerOpen}>
             <Modal.Content>
-            <Countdown minutes="00" seconds={this.state.timerTime}/>
+            <Countdown minutes="00" seconds={this.state.timerTime >= 10 ? this.state.timerTime :`0${this.state.timerTime}`}/>
             <h1>You've caught {fish} fish in {
                 this.state.fishingTime - this.state.timerTime} seconds</h1>
             </Modal.Content>
