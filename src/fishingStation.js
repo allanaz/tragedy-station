@@ -33,20 +33,7 @@ class FishingStation extends React.Component {
             <br />
         </p>
         <TimeCalculator numFish={this.state.fishAmt} onTimerStop={this.updateFishAmount} />
-        <p>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+        <p className="fishery">
           This fishery has {this.state.fishAmt} fish.
           <br />
           <Button onClick={this.regenerate}>regenerate fish population</Button>
