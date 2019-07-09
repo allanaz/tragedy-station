@@ -8,7 +8,9 @@ class TimeCalculator extends React.Component {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
-    this.calculateTime = this.calculateTime.bind(this)
+    this.calculateTimeSmall = this.calculateTimeSmall.bind(this)
+    this.calculateTimeMedium = this.calculateTimeMedium.bind(this)
+    this.calculateTimeLarge = this.calculateTimeLarge.bind(this)
     this.state = {
       numFishRequested: null,
       fishingTime: 0,
@@ -45,7 +47,23 @@ class TimeCalculator extends React.Component {
   }
 
   // have amount left be passed down as a prop
-  calculateTime = (fishLeft, numFishRequested) => {
+  calculateTimeSmall = () => {
+    const numFish = this.props.numFish; const fisherySize = 100;
+    const boatSpeed = 2;
+    const time = Math.round(this.state.numFishRequested/(boatSpeed * numFish / fisherySize))
+    this.setState({fishingTime: time, timerTime: time, timerOpen: true})
+    this.startTimer();
+  }
+
+  calculateTimeMedium = () => {
+    const numFish = this.props.numFish; const fisherySize = 100;
+    const boatSpeed = 2;
+    const time = Math.round(this.state.numFishRequested/(boatSpeed * numFish / fisherySize))
+    this.setState({fishingTime: time, timerTime: time, timerOpen: true})
+    this.startTimer();
+  }
+
+  calculateTimeLarge = () => {
     const numFish = this.props.numFish; const fisherySize = 100;
     const boatSpeed = 2;
     const time = Math.round(this.state.numFishRequested/(boatSpeed * numFish / fisherySize))
@@ -64,7 +82,11 @@ class TimeCalculator extends React.Component {
               value={this.state.numFishRequested}
               onChange={this.handleChange}/>
           </Form.Field>
-          <Button onClick={this.calculateTime}>Fish!</Button>
+          <Button.Group>
+            <Button onClick={this.calculateTime}>Small</Button>
+            <Button onClick={this.calculateTime}>Medium</Button>
+            <Button onClick={this.calculateTime}>Large</Button>
+          </Button.Group>
           <Modal basic
              closeOnEscape={false}
              closeOnDimmerClick={false}
